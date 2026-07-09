@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="gu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Binal! 🎉</title>
-    <!-- Canvas-Confetti library for the celebration explosion -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
@@ -21,6 +20,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .container {
@@ -33,6 +33,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: all 0.5s ease;
+            position: relative;
         }
 
         .icon-container {
@@ -76,10 +77,6 @@
             box-shadow: 0 8px 20px rgba(255, 94, 126, 0.6);
         }
 
-        .action-btn:active {
-            transform: translateY(1px);
-        }
-
         .letter-box {
             max-height: 0;
             overflow: hidden;
@@ -94,7 +91,7 @@
         }
 
         .letter-box.open {
-            max-height: 600px;
+            max-height: 1000px;
             opacity: 1;
             padding: 25px 20px;
             margin-top: 30px;
@@ -116,21 +113,78 @@
             line-height: 1.5;
         }
 
-        .letter-box p:last-child {
-            margin-bottom: 0;
+        /* Proposal Section Styling */
+        .proposal-section {
+            display: none;
+            margin-top: 30px;
+            border-top: 2px dashed #ffb3c1;
+            padding-top: 20px;
+            text-align: center;
+        }
+
+        .proposal-title {
+            color: #d62246;
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            height: 60px;
+            align-items: center;
+            position: relative;
+        }
+
+        .proposal-btn {
+            padding: 12px 30px;
+            font-size: 1.1rem;
             font-weight: bold;
-            color: #ff5e7e;
-            text-align: right;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+        }
+
+        .yes-btn {
+            background-color: #4ecdc4;
+            color: white;
+            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.4);
+        }
+
+        .no-btn {
+            background-color: #ff6b6b;
+            color: white;
+            position: absolute;
+            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+            touch-action: none; /* Prevents default scrolling on mobile when touching */
+        }
+
+        .success-message {
+            display: none;
+            color: #4ecdc4;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="icon-container">🎁</div>
+    <div class="container" id="main-card">
+        <div class="icon-container" id="main-icon">🎁</div>
         
-        <h1>Happy Birthday, Binal! 🎂</h1>
-        <p class="subtitle">To my mysterious friend ✨</p>
+        <h1 id="main-title">Happy Birthday, Binal! 🎂</h1>
+        <p class="subtitle" id="main-subtitle">To my special friend (Sweety) ✨</p>
         
         <button class="action-btn" id="reveal-btn" onclick="openWish()">Open Your Wish ✨</button>
 
@@ -139,42 +193,88 @@
             
             <p>Happy Birthday! I wanted to create something unique just for you to celebrate your special day.</p>
             
-            <p class="highlight-text">"I don't know about our future, but I just want live in this period. whatever happened in future still we should be a friend 🎂"</p>
+            <p class="highlight-text">"I don't know about our future, but I'm just living in this moment we are celebrating your birthday. 🎂"</p>
             
-            <p>I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get your desire.</p>
+            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve.</p>
             
-            <p>— With love ❤️</p>
+            <p style="text-align: right; font-weight: bold; color: #ff5e7e;">— With love ❤️</p>
+            
+            <center>
+                <button class="action-btn" id="proposal-trigger-btn" style="margin-top: 20px; background: linear-gradient(45deg, #d62246, #ff5e7e);" onclick="showProposal()">Click for one more thing... 👀</button>
+            </center>
+        </div>
+
+        <div class="proposal-section" id="proposal-box">
+            <h2 class="proposal-title">"મને આપણા ભવિષ્ય વિશે ખબર નથી, પણ હું બસ આ જ સમયમાં જીવવા માંગું છું. ભવિષ્યમાં ગમે તે થાય, તેમ છતાં આપણે હંમેશા મિત્ર જ રહેવું જોઈએ." 💖</h2>
+            <div class="btn-group" id="btn-group-container">
+                <button class="proposal-btn yes-btn" onclick="acceptProposal()">YES! 🏛️</button>
+                <button class="proposal-btn no-btn" id="no-button" onmouseover="moveNoButton()" ontouchstart="moveNoButton()" onclick="moveNoButton()">No 😢</button>
+            </div>
+            <div class="success-message" id="success-text">
+                YAYYY! You made me the happiest person! 💖🌍✨
+            </div>
         </div>
     </div>
 
     <script>
         function openWish() {
-            // Smoothly display the card letter
             const letter = document.getElementById('wish-letter');
             letter.classList.add('open');
             
-            // Transform button text
             const btn = document.getElementById('reveal-btn');
-            btn.innerHTML = "Celebrate! 🥳";
+            btn.style.display = 'none'; 
             
-            // Continuous confetti burst for 7 seconds
-            var duration = 7 * 1000;
+            triggerConfetti();
+        }
+
+        function showProposal() {
+            document.getElementById('proposal-box').style.display = 'block';
+            document.getElementById('proposal-trigger-btn').style.display = 'none';
+            document.getElementById('proposal-box').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Fun function to make the No button run away on touch or mouse hover
+        function moveNoButton() {
+            const noBtn = document.getElementById('no-button');
+            const container = document.getElementById('btn-group-container');
+            
+            const padding = 20;
+            const maxWidth = container.clientWidth - noBtn.clientWidth - padding;
+            
+            // Move horizontally across the container
+            const randomX = Math.floor(Math.random() * maxWidth);
+            // Jitter it vertically up or down so it escapes perfectly
+            const randomY = Math.floor((Math.random() - 0.5) * 70); 
+            
+            noBtn.style.left = randomX + 'px';
+            noBtn.style.transform = `translateY(${randomY}px)`;
+        }
+
+        function acceptProposal() {
+            document.getElementById('btn-group-container').style.display = 'none';
+            document.getElementById('no-button').style.display = 'none';
+            
+            document.getElementById('main-icon').innerHTML = "💝";
+            document.getElementById('success-text').style.display = 'block';
+            document.body.style.background = "linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%)";
+            
+            var duration = 6 * 1000;
             var end = Date.now() + duration;
 
             (function frame() {
                 confetti({
-                    particleCount: 5,
+                    particleCount: 7,
                     angle: 60,
-                    spread: 55,
+                    spread: 60,
                     origin: { x: 0 },
-                    colors: ['#ff5e7e', '#ff8967', '#a8c1ef']
+                    colors: ['#ff5e7e', '#ff8967', '#ffafbd']
                 });
                 confetti({
-                    particleCount: 5,
+                    particleCount: 7,
                     angle: 120,
-                    spread: 55,
+                    spread: 60,
                     origin: { x: 1 },
-                    colors: ['#ff5e7e', '#ff8967', '#a8c1ef']
+                    colors: ['#ff5e7e', '#ff8967', '#ffafbd']
                 });
 
                 if (Date.now() < end) {
@@ -182,7 +282,16 @@
                 }
             }());
         }
+
+        function triggerConfetti() {
+            var duration = 2.5 * 1000;
+            var end = Date.now() + duration;
+            (function frame() {
+                confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
+                confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
+                if (Date.now() < end) { requestAnimationFrame(frame); }
+            }());
+        }
     </script>
 </body>
 </html>
-
