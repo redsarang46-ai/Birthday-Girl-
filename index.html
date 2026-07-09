@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="gu">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Binal! 🎉</title>
+    <!-- Canvas-Confetti library for the celebration explosion -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
@@ -124,43 +125,46 @@
 
         .proposal-title {
             color: #d62246;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 25px;
             line-height: 1.6;
             font-weight: 600;
         }
 
+        /* Flexbox handles side-by-side positioning beautifully */
         .btn-group {
             display: flex;
             justify-content: center;
-            gap: 20px;
-            height: 60px;
             align-items: center;
+            gap: 30px; 
+            height: 120px;
             position: relative;
         }
 
         .proposal-btn {
-            padding: 12px 30px;
+            padding: 12px 35px;
             font-size: 1.1rem;
             font-weight: bold;
             border-radius: 25px;
             border: none;
             cursor: pointer;
-            transition: transform 0.1s ease;
         }
 
         .yes-btn {
             background-color: #4ecdc4;
             color: white;
             box-shadow: 0 4px 10px rgba(78, 205, 196, 0.4);
+            z-index: 2;
         }
 
         .no-btn {
             background-color: #ff6b6b;
             color: white;
-            position: absolute;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
-            touch-action: none; /* Prevents default scrolling on mobile when touching */
+            position: relative; /* Starts relative (side-by-side) then flips to absolute on move */
+            touch-action: none; 
+            transition: transform 0.1s ease;
+            z-index: 2;
         }
 
         .success-message {
@@ -188,6 +192,7 @@
         
         <button class="action-btn" id="reveal-btn" onclick="openWish()">Open Your Wish ✨</button>
 
+        <!-- Birthday Message Layer -->
         <div class="letter-box" id="wish-letter">
             <p>Dear Binal (Sweety),</p>
             
@@ -199,17 +204,21 @@
             
             <p style="text-align: right; font-weight: bold; color: #ff5e7e;">— With love ❤️</p>
             
+            <!-- Hidden Proposal Trigger Button -->
             <center>
                 <button class="action-btn" id="proposal-trigger-btn" style="margin-top: 20px; background: linear-gradient(45deg, #d62246, #ff5e7e);" onclick="showProposal()">Click for one more thing... 👀</button>
             </center>
         </div>
 
+        <!-- Proposal Layer with your English Statement -->
         <div class="proposal-section" id="proposal-box">
-            <h2 class="proposal-title">"મને આપણા ભવિષ્ય વિશે ખબર નથી, પણ હું બસ આ જ સમયમાં જીવવા માંગું છું. ભવિષ્યમાં ગમે તે થાય, તેમ છતાં આપણે હંમેશા મિત્ર જ રહેવું જોઈએ." 💖</h2>
+            <h2 class="proposal-title">"The future is unpredictable, but I am just so happy to be right here in this moment with you today. Whatever happens tomorrow, let's promise that our bond stays unbreakable. Let's always be friends." 💖</h2>
+            
             <div class="btn-group" id="btn-group-container">
                 <button class="proposal-btn yes-btn" onclick="acceptProposal()">YES! 🏛️</button>
                 <button class="proposal-btn no-btn" id="no-button" onmouseover="moveNoButton()" ontouchstart="moveNoButton()" onclick="moveNoButton()">No 😢</button>
             </div>
+            
             <div class="success-message" id="success-text">
                 YAYYY! You made me the happiest person! 💖🌍✨
             </div>
@@ -233,18 +242,23 @@
             document.getElementById('proposal-box').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Fun function to make the No button run away on touch or mouse hover
+        // Fixed run-away function that smoothly swaps the layout style
         function moveNoButton() {
             const noBtn = document.getElementById('no-button');
             const container = document.getElementById('btn-group-container');
             
-            const padding = 20;
-            const maxWidth = container.clientWidth - noBtn.clientWidth - padding;
+            // Switch from side-by-side flow to floating absolute position so it can jump anywhere
+            if (noBtn.style.position !== 'absolute') {
+                noBtn.style.position = 'absolute';
+            }
             
-            // Move horizontally across the container
+            const padding = 30;
+            const maxWidth = container.clientWidth - noBtn.clientWidth - padding;
+            const maxHeight = container.clientHeight - noBtn.clientHeight - padding;
+            
+            // Generate entirely safe random boundaries inside the card element
             const randomX = Math.floor(Math.random() * maxWidth);
-            // Jitter it vertically up or down so it escapes perfectly
-            const randomY = Math.floor((Math.random() - 0.5) * 70); 
+            const randomY = Math.floor((Math.random() - 0.5) * maxHeight); 
             
             noBtn.style.left = randomX + 'px';
             noBtn.style.transform = `translateY(${randomY}px)`;
