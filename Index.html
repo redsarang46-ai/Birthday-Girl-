@@ -1,1 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Binal! 🎉</title>
+    <!-- Canvas-Confetti library for the celebration explosion -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fed6e3 0%, #a8c1ef 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+
+        .icon-container {
+            font-size: 4rem;
+            margin-bottom: 15px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            color: #ff5e7e;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .action-btn {
+            background: linear-gradient(45deg, #ff5e7e, #ff8967);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 94, 126, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 94, 126, 0.6);
+        }
+
+        .action-btn:active {
+            transform: translateY(1px);
+        }
+
+        .letter-box {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.8s ease, opacity 0.8s ease;
+            text-align: left;
+            background: #fff9fa;
+            border-left: 4px solid #ff5e7e;
+            padding: 0 20px;
+            margin-top: 0;
+            border-radius: 8px;
+        }
+
+        .letter-box.open {
+            max-height: 600px;
+            opacity: 1;
+            padding: 25px 20px;
+            margin-top: 30px;
+        }
+
+        .letter-box p {
+            color: #444;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .letter-box .highlight-text {
+            font-size: 1.2rem;
+            color: #ff5e7e;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.5;
+        }
+
+        .letter-box p:last-child {
+            margin-bottom: 0;
+            font-weight: bold;
+            color: #ff5e7e;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="icon-container">🎁</div>
+        
+        <h1>Happy Birthday, Binal! 🎂</h1>
+        <p class="subtitle">To my special friend (Sweety) ✨</p>
+        
+        <button class="action-btn" id="reveal-btn" onclick="openWish()">Open Your Wish ✨</button>
+
+        <div class="letter-box" id="wish-letter">
+            <p>Dear Binal (Sweety),</p>
+            
+            <p>Happy Birthday! I wanted to create something unique just for you to celebrate your special day.</p>
+            
+            <p class="highlight-text">"I don't know about our future, but I'm just living in this moment we are celebrating your birthday. 🎂"</p>
+            
+            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve.</p>
+            
+            <p>— With love ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        function openWish() {
+            // Smoothly display the card letter
+            const letter = document.getElementById('wish-letter');
+            letter.classList.add('open');
+            
+            // Transform button text
+            const btn = document.getElementById('reveal-btn');
+            btn.innerHTML = "Celebrate! 🥳";
+            
+            // Continuous confetti burst for 3 seconds
+            var duration = 3 * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff5e7e', '#ff8967', '#a8c1ef']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff5e7e', '#ff8967', '#a8c1ef']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
 
