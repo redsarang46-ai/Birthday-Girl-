@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Happy Birthday Binal! 🧿✨</title>
+    <!-- Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
@@ -92,7 +93,7 @@
         }
 
         .letter-box.open {
-            max-height: 4000px;
+            max-height: 5000px;
             opacity: 1;
             padding: 25px 20px;
             margin-top: 28px;
@@ -105,6 +106,7 @@
             font-size: 1.05rem;
         }
 
+        /* ===== SURPRISE BALLOONS CARD ===== */
         .surprise-cat {
             display: none;
             margin: 24px 0 10px;
@@ -188,6 +190,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* ===== CAKE LAYOUT ===== */
         .cake-section {
             margin: 24px 0 10px;
             text-align: center;
@@ -245,6 +248,7 @@
             min-height: 28px;
         }
 
+        /* ===== PROPOSAL AREA ===== */
         .proposal-section {
             display: none;
             margin-top: 28px;
@@ -431,8 +435,8 @@
             }
         }
 
-        // Standardized single click handler - perfectly responsive on modern mobile viewports
-        function openWish() {
+        // Fixed Global Click Events (No complex pointer combinations)
+        revealBtn.onclick = function() {
             letter.classList.add('open');
             revealBtn.style.display = 'none';
             surpriseCat.classList.add('show');
@@ -440,10 +444,9 @@
             setTimeout(() => {
                 surpriseCat.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 400);
-        }
-        revealBtn.addEventListener('click', openWish);
+        };
 
-        function handleCatCut() {
+        catCutBtn.onclick = function() {
             cakeSection.classList.add('visible');
             drawCake(0);
             setTimeout(() => {
@@ -455,15 +458,14 @@
             catCutBtn.style.cursor = 'default';
             catCutBtn.disabled = true;
             triggerConfetti(30);
-        }
-        catCutBtn.addEventListener('click', handleCatCut);
+        };
 
-        // 3D Curved Cake Render Code
+        // Complete 3D Cylinder Cake Vector Drawing
         function drawCake(progress) {
             const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
-            // Base Serving Plate
+            // Platters
             ctx.fillStyle = '#eaf0f6';
             ctx.beginPath();
             ctx.ellipse(W/2, 320, 165, 25, 0, 0, Math.PI * 2);
@@ -476,7 +478,7 @@
             let shiftLeft = progress * -30;
             let shiftRight = progress * 30;
 
-            // Render Left Side Piece
+            // Render Left Side
             ctx.save();
             ctx.translate(shiftLeft, 0);
             ctx.fillStyle = '#f48fb1';
@@ -510,7 +512,7 @@
             }
             ctx.restore();
 
-            // Render Right Side Piece
+            // Render Right Side
             ctx.save();
             ctx.translate(shiftRight, 0);
             ctx.fillStyle = '#f48fb1';
@@ -544,7 +546,7 @@
             }
             ctx.restore();
 
-            // Candle Logic
+            // Candle
             if (progress === 0) {
                 ctx.fillStyle = '#00bcd4';
                 ctx.fillRect(W/2 - 4, 95, 8, 50);
@@ -571,7 +573,7 @@
             }
         }
 
-        function startCakeCut() {
+        canvas.onclick = function() {
             if (!cakeCut) {
                 let interval = setInterval(() => {
                     cutProgress += 0.05;
@@ -586,9 +588,34 @@
                     }
                 }, 30);
             }
-        }
-        canvas.addEventListener('click', startCakeCut);
+        };
 
-        function showProposal() {
+        triggerBtn.onclick = function() {
             proposalBox.style.display = 'block';
-   
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = `${btnGroup.offsetWidth - noBtn.offsetWidth - 20}px`;
+            noBtn.style.top = '36px';
+            setTimeout(() => {
+                proposalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        };
+
+        document.getElementById('yes-btn').onclick = function() {
+            successText.style.display = 'block';
+            btnGroup.style.display = 'none';
+            triggerConfetti(150);
+        };
+
+        function moveNoButton() {
+            const maxX = btnGroup.offsetWidth - noBtn.offsetWidth;
+            const maxY = btnGroup.offsetHeight - noBtn.offsetHeight;
+            const randomX = Math.random() * maxX;
+            const randomY = Math.random() * maxY;
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        }
+        noBtn.onmouseover = moveNoButton;
+        noBtn.ontouchstart = moveNoButton;
+    </script>
+</body>
+</html>
