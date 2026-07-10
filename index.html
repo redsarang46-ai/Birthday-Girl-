@@ -106,6 +106,11 @@
             font-size: 1.05rem;
         }
 
+        .surprise-trigger-wrap {
+            text-align: center;
+            margin: 20px 0;
+        }
+
         /* ===== SURPRISE BALLOONS CARD ===== */
         .surprise-cat {
             display: none;
@@ -348,6 +353,11 @@
             <p>Happy Birthday! I wanted to create something just for you to celebrate your special day.</p>
             <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get all your desires as well.</p>
 
+            <!-- Intermediate button wrapper -->
+            <div class="surprise-trigger-wrap" id="surpriseTriggerWrap">
+                <button class="action-btn" id="surprise-init-btn" style="background: linear-gradient(45deg, #ff8967, #ff5e7e);">Tap for a surprise… 👀</button>
+            </div>
+
             <!-- ===== SURPRISE BIRTHDAY CARD ===== -->
             <div class="surprise-cat" id="surpriseCat">
                 <div class="cat-image-wrap">
@@ -408,10 +418,12 @@
     <script>
         const revealBtn = document.getElementById('reveal-btn');
         const letter = document.getElementById('wish-letter');
-        const triggerBtn = document.getElementById('proposal-trigger-btn');
+        const surpriseTriggerWrap = document.getElementById('surpriseTriggerWrap');
+        const surpriseInitBtn = document.getElementById('surprise-init-btn');
         const surpriseCat = document.getElementById('surpriseCat');
         const catCutBtn = document.getElementById('catCutBtn');
         const cakeSection = document.getElementById('cakeSection');
+        const triggerBtn = document.getElementById('proposal-trigger-btn');
         const proposalBox = document.getElementById('proposal-box');
         const successText = document.getElementById('success-text');
         const btnGroup = document.getElementById('btn-group-container');
@@ -435,17 +447,27 @@
             }
         }
 
-        // Fixed Global Click Events (No complex pointer combinations)
+        // Action 1: Open the letter wish box
         revealBtn.onclick = function() {
             letter.classList.add('open');
             revealBtn.style.display = 'none';
-            surpriseCat.classList.add('show');
-            triggerConfetti(45);
+            triggerConfetti(25);
             setTimeout(() => {
-                surpriseCat.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, 400);
+                letter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
         };
 
+        // Action 2: BOOM! Trigger the cake and card reveal button
+        surpriseInitBtn.onclick = function() {
+            surpriseTriggerWrap.style.display = 'none'; 
+            surpriseCat.classList.add('show'); 
+            triggerConfetti(70); 
+            setTimeout(() => {
+                surpriseCat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 200);
+        };
+
+        // Action 3: Handle cake slicing setup
         catCutBtn.onclick = function() {
             cakeSection.classList.add('visible');
             drawCake(0);
@@ -460,12 +482,12 @@
             triggerConfetti(30);
         };
 
-        // Complete 3D Cylinder Cake Vector Drawing
+        // 3D Cylinder Cake Vector Canvas Engine
         function drawCake(progress) {
             const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
-            // Platters
+            // Base plate layers
             ctx.fillStyle = '#eaf0f6';
             ctx.beginPath();
             ctx.ellipse(W/2, 320, 165, 25, 0, 0, Math.PI * 2);
@@ -478,7 +500,7 @@
             let shiftLeft = progress * -30;
             let shiftRight = progress * 30;
 
-            // Render Left Side
+            // Left Split Side
             ctx.save();
             ctx.translate(shiftLeft, 0);
             ctx.fillStyle = '#f48fb1';
@@ -512,7 +534,7 @@
             }
             ctx.restore();
 
-            // Render Right Side
+            // Right Split Side
             ctx.save();
             ctx.translate(shiftRight, 0);
             ctx.fillStyle = '#f48fb1';
@@ -546,7 +568,7 @@
             }
             ctx.restore();
 
-            // Candle
+            // Interactive lit candle core
             if (progress === 0) {
                 ctx.fillStyle = '#00bcd4';
                 ctx.fillRect(W/2 - 4, 95, 8, 50);
@@ -606,6 +628,7 @@
             triggerConfetti(150);
         };
 
+        // EXACT GAMEPLAY RETAINED FOR THE RUNAWAY BUTTON
         function moveNoButton() {
             const maxX = btnGroup.offsetWidth - noBtn.offsetWidth;
             const maxY = btnGroup.offsetHeight - noBtn.offsetHeight;
