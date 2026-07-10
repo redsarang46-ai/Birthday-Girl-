@@ -92,7 +92,7 @@
         }
 
         .letter-box.open {
-            max-height: 2500px; 
+            max-height: 3500px; 
             opacity: 1;
             padding: 25px 20px;
             margin-top: 30px;
@@ -105,16 +105,7 @@
             font-size: 1.1rem;
         }
 
-        .letter-box .highlight-text {
-            font-size: 1.2rem;
-            color: #ff5e7e;
-            font-weight: 600;
-            text-align: center;
-            margin: 20px 0;
-            line-height: 1.5;
-        }
-
-        /* Cake Cutting Design */
+        /* Cake Cutting Zone */
         .cake-section {
             text-align: center;
             margin: 25px 0;
@@ -142,37 +133,143 @@
             transform: translate(-30px, 40px) rotate(-90deg);
         }
 
-        /* Pure CSS Animated Birthday Cat Display (No external links to break!) */
+        /* 100% BULLETPROOF PURE CSS HAPPY CAT MEME BUILD */
         .meme-container {
-            display: none;
             text-align: center;
-            margin: 25px 0;
-            animation: fadeIn 0.8s ease-in-out forwards;
+            margin: 30px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
+
+        .cat-box {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            animation: happyJump 0.4s infinite alternate cubic-bezier(0.455, 0.03, 0.515, 0.955);
+        }
+
+        .cat-head {
+            width: 140px;
+            height: 110px;
+            background: #99aab5;
+            border-radius: 50% 50% 45% 45%;
+            position: absolute;
+            bottom: 10px;
+            left: 5px;
+            box-shadow: inset -10px -10px 0px rgba(0,0,0,0.1);
+        }
+
+        /* Ears */
+        .ear {
+            width: 0;
+            height: 0;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 45px solid #99aab5;
+            position: absolute;
+            top: -20px;
+        }
+        .ear.left { left: 5px; transform: rotate(-20px); }
+        .ear.right { right: 5px; transform: rotate(20px); }
         
-        .animated-cat-card {
-            background: #fff0f3;
-            border: 2px solid #ffb3c1;
-            border-radius: 20px;
-            padding: 20px;
-            display: inline-block;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        .ear-inner {
+            width: 0;
+            height: 0;
+            border-left: 13px solid transparent;
+            border-right: 13px solid transparent;
+            border-bottom: 25px solid #ffb3c1;
+            position: absolute;
+            bottom: -43px;
+            left: -13px;
         }
 
-        .cat-dance {
-            font-size: 5rem;
-            display: inline-block;
-            animation: catJam 0.6s infinite alternate cubic-bezier(0.455, 0.03, 0.515, 0.955);
+        /* Happy Closed Eyes */
+        .eye {
+            width: 24px;
+            height: 12px;
+            border-bottom: 4px solid #23272a;
+            border-radius: 0 0 50% 50%;
+            position: absolute;
+            top: 45px;
+        }
+        .eye.left { left: 25px; transform: rotate(-10deg); }
+        .eye.right { right: 25px; transform: rotate(10deg); }
+
+        /* Cheeks */
+        .blush {
+            width: 20px;
+            height: 12px;
+            background: #ff839b;
+            border-radius: 50%;
+            opacity: 0.6;
+            position: absolute;
+            top: 60px;
+        }
+        .blush.left { left: 15px; }
+        .blush.right { right: 15px; }
+
+        /* Happy Cat W-Mouth */
+        .snout {
+            width: 30px;
+            height: 15px;
+            position: absolute;
+            top: 60px;
+            left: 55px;
+        }
+        .snout::before, .snout::after {
+            content: '';
+            width: 14px;
+            height: 10px;
+            border: 3px solid #23272a;
+            border-top: none;
+            border-radius: 0 0 9px 9px;
+            position: absolute;
+        }
+        .snout::before { left: 1px; }
+        .snout::after { right: 1px; }
+
+        /* Paws waving up high */
+        .paw {
+            width: 26px;
+            height: 26px;
+            background: #99aab5;
+            border-radius: 50%;
+            position: absolute;
+            top: 70px;
+            animation: wavePaw 0.2s infinite alternate;
+        }
+        .paw.left { left: -15px; transform-origin: right bottom; }
+        .paw.right { right: -15px; transform-origin: left bottom; }
+
+        /* High Energy Animations */
+        @keyframes happyJump {
+            0% { transform: translateY(0) scaleY(0.9) scaleX(1.05); }
+            100% { transform: translateY(-45px) scaleY(1.1) scaleX(0.95); }
         }
 
-        @keyframes catJam {
-            0% { transform: scale(1) rotate(-10deg) translateY(0); }
-            100% { transform: scale(1.15) rotate(10deg) translateY(-15px); }
+        @keyframes wavePaw {
+            0% { transform: translateY(0) rotate(-20deg); }
+            100% { transform: translateY(-15px) rotate(20deg); }
+        }
+
+        .meme-text {
+            color: #ff5e7e;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            animation: pulseText 0.4s infinite alternate;
+        }
+
+        @keyframes pulseText {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); text-shadow: 0 0 10px rgba(255,94,126,0.3); }
         }
 
         /* Proposal Section Styling */
         .proposal-section {
-            display: none;
             margin-top: 30px;
             border-top: 2px dashed #ffb3c1;
             padding-top: 20px;
@@ -231,11 +328,6 @@
             animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes pop {
             0% { transform: scale(0.5); opacity: 0; }
             100% { transform: scale(1); opacity: 1; }
@@ -258,7 +350,7 @@
             
             <p>Happy Birthday! I wanted to create something just for you to celebrate your special day.</p>
             
-            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get your all desires.</p>
+            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get all your desires as well.</p>
             
             <p style="text-align: right; font-weight: bold; color: #ff5e7e;">— With love ❤️</p>
             
@@ -269,35 +361,39 @@
                     <span class="knife">🔪</span>
                     <span id="cakeEmoji">🎂</span>
                 </div>
-                <p id="cakeStatus" style="font-weight: bold; color: #ff5e7e; margin-top: 5px; text-align: center; font-size: 1rem;"></p>
+                <p id="cakeStatus" style="font-weight: bold; color: #ff5e7e; margin-top: 5px; text-align: center; font-size: 1rem;">Click to cut!</p>
             </div>
 
-            <!-- Happy Cat Meme Container (Revealed after cutting cake) -->
-            <div class="meme-container" id="catMemeSection">
-                <div class="animated-cat-card">
-                    <div class="cat-dance">🐱✨</div>
-                    <h3 style="color: #ff5e7e; margin-top: 10px;">Happy Happy Happy!</h3>
-                    <p style="font-size: 0.85rem; color: #666; font-style: italic;">*Happy cat dance activates*</p>
+            <!-- Complete Native Happy Cat Animation -->
+            <div class="meme-container">
+                <div class="cat-box">
+                    <div class="ear left"><div class="ear-inner"></div></div>
+                    <div class="ear-right ear"><div class="ear-inner"></div></div>
+                    <div class="cat-head">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                        <div class="blush left"></div>
+                        <div class="blush right"></div>
+                        <div class="snout"></div>
+                        <div class="paw left"></div>
+                        <div class="paw right"></div>
+                    </div>
+                </div>
+                <div class="meme-text">HAPPY HAPPY HAPPY! 🐱✨</div>
+            </div>
+
+            <!-- Proposal Layer with your English Statement -->
+            <div class="proposal-section">
+                <h2 class="proposal-title">"The future is unpredictable, but I am just so happy to be right here in this moment with you today. Whatever happens tomorrow, let's promise that our bond stays long as much as. Let's always be friends." 💖</h2>
+                
+                <div class="btn-group" id="btn-group-container">
+                    <button class="proposal-btn yes-btn" onclick="acceptProposal()">YES! 🏛️</button>
+                    <button class="proposal-btn no-btn" id="no-button" onmouseover="moveNoButton()" ontouchstart="moveNoButton()" onclick="moveNoButton()">No 😢</button>
                 </div>
                 
-                <!-- Hidden Proposal Trigger Button -->
-                <center>
-                    <button class="action-btn" id="proposal-trigger-btn" style="margin-top: 20px; background: linear-gradient(45deg, #d62246, #ff5e7e);" onclick="showProposal()">Click for one more thing... 👀</button>
-                </center>
-            </div>
-        </div>
-
-        <!-- Proposal Layer with your English Statement -->
-        <div class="proposal-section" id="proposal-box">
-            <h2 class="proposal-title">"The future is unpredictable, but I am just so happy to be right here in this moment with you today. Whatever happens tomorrow, let's promise that our bond stays long as much as. Let's always be friends." 💖</h2>
-            
-            <div class="btn-group" id="btn-group-container">
-                <button class="proposal-btn yes-btn" onclick="acceptProposal()">YES! 🏛️</button>
-                <button class="proposal-btn no-btn" id="no-button" onmouseover="moveNoButton()" ontouchstart="moveNoButton()" onclick="moveNoButton()">No 😢</button>
-            </div>
-            
-            <div class="success-message" id="success-text">
-                YAYYY! You made me the happiest person! 💖🌍✨
+                <div class="success-message" id="success-text">
+                    YAYYY! You made me the happiest person! 💖🌍✨
+                </div>
             </div>
         </div>
     </div>
@@ -306,10 +402,7 @@
         function openWish() {
             const letter = document.getElementById('wish-letter');
             letter.classList.add('open');
-            
-            const btn = document.getElementById('reveal-btn');
-            btn.style.display = 'none'; 
-            
+            document.getElementById('reveal-btn').style.display = 'none'; 
             triggerConfetti();
         }
 
@@ -317,27 +410,13 @@
             const cakeContainer = document.getElementById('cakeObj');
             const cakeEmoji = document.getElementById('cakeEmoji');
             const cakeStatus = document.getElementById('cakeStatus');
-            const catMemeSection = document.getElementById('catMemeSection');
             
             if(!cakeContainer.classList.contains('cut')) {
                 cakeContainer.classList.add('cut');
                 cakeEmoji.innerText = "🍰✨🍰";
                 cakeStatus.innerText = "Yay! The cake is cut! Save a slice! 🍽️";
-                
                 triggerConfetti();
-
-                // Smoothly show the happy cat animation section right below the cake status
-                setTimeout(() => {
-                    catMemeSection.style.display = 'block';
-                    catMemeSection.scrollIntoView({ behavior: 'smooth' });
-                }, 600);
             }
-        }
-
-        function showProposal() {
-            document.getElementById('proposal-box').style.display = 'block';
-            document.getElementById('proposal-trigger-btn').style.display = 'none';
-            document.getElementById('proposal-box').scrollIntoView({ behavior: 'smooth' });
         }
 
         function moveNoButton() {
