@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Happy Birthday Binal! 🧿✨</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
@@ -395,7 +395,7 @@
             <div class="cake-section" id="cakeSection">
                 <div class="cake-label">
                     <span>🎂</span>
-                    <span>Click to slice the cake!</span>
+                    <span>Click or tap to slice the cake!</span>
                     <span class="knife-icon">🔪</span>
                 </div>
 
@@ -403,7 +403,7 @@
                     <canvas id="cakeCanvas" width="500" height="380"></canvas>
                 </div>
 
-                <div class="cake-hint" id="cakeHint">👆 Click on the cake to cut it!</div>
+                <div class="cake-hint" id="cakeHint">👆 Click or tap on the cake to cut it!</div>
                 <div class="cake-cut-status" id="cakeStatus"></div>
             </div>
 
@@ -462,7 +462,12 @@
             });
         }
 
-        function openWish() {
+        // Unified click/touch handler to prevent mobile execution skip
+        function openWish(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             letter.classList.add('open');
             revealBtn.style.display = 'none';
             surpriseCat.classList.add('show');
@@ -473,15 +478,20 @@
         }
 
         revealBtn.addEventListener('click', openWish);
+        revealBtn.addEventListener('touchstart', openWish, { passive: false });
 
-        function handleCatCut() {
+        function handleCatCut(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             cakeSection.classList.add('visible');
             drawCake(0);
             setTimeout(() => {
                 cakeSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
 
-            catCutBtn.textContent = '🔪 Cut Standard!';
+            catCutBtn.textContent = '🔪 Cutting...';
             catCutBtn.style.opacity = '0.6';
             catCutBtn.style.cursor = 'default';
             catCutBtn.disabled = true;
@@ -489,6 +499,7 @@
         }
 
         catCutBtn.addEventListener('click', handleCatCut);
+        catCutBtn.addEventListener('touchstart', handleCatCut, { passive: false });
 
         // Cake Drawer
         function drawCake(progress) {
@@ -501,26 +512,25 @@
             ctx.ellipse(W/2, 300, 160, 25, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Slices split simulation
             let shiftLeft = progress * -15;
             let shiftRight = progress * 15;
 
-            // Render Left Side of Cake
+            // Left Side
             ctx.save();
             ctx.translate(shiftLeft, 0);
             ctx.fillStyle = '#f8bbd0';
             ctx.fillRect(W/2 - 100, 160, 100, 100);
-            ctx.fillStyle = '#ff8967'; // Frosting top
-            ctx.fillRect(W/2 - 100, 150, 100, 100);
+            ctx.fillStyle = '#ff8967'; 
+            ctx.fillRect(W/2 - 100, 150, 100, 10);
             ctx.restore();
 
-            // Render Right Side of Cake
+            // Right Side
             ctx.save();
             ctx.translate(shiftRight, 0);
             ctx.fillStyle = '#f48fb1';
             ctx.fillRect(W/2, 160, 100, 100);
-            ctx.fillStyle = '#ff5e7e'; // Frosting top
-            ctx.fillRect(W/2, 150, 100, 100);
+            ctx.fillStyle = '#ff5e7e'; 
+            ctx.fillRect(W/2, 150, 100, 10);
             ctx.restore();
 
             // Candles
@@ -531,7 +541,11 @@
             }
         }
 
-        canvas.addEventListener('click', () => {
+        function startCakeCut(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             if (!cakeCut) {
                 let interval = setInterval(() => {
                     cutProgress += 0.05;
@@ -546,9 +560,16 @@
                     }
                 }, 30);
             }
-        });
+        }
 
-        function showProposal() {
+        canvas.addEventListener('click', startCakeCut);
+        canvas.addEventListener('touchstart', startCakeCut, { passive: false });
+
+        function showProposal(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             proposalBox.style.display = 'block';
             setTimeout(() => {
                 proposalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -556,28 +577,34 @@
         }
 
         triggerBtn.addEventListener('click', showProposal);
+        triggerBtn.addEventListener('touchstart', showProposal, { passive: false });
 
-        function acceptProposal() {
+        function acceptProposal(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             successText.style.display = 'block';
             btnGroup.style.display = 'none';
             triggerConfetti(150);
         }
 
         document.getElementById('yes-btn').addEventListener('click', acceptProposal);
+        document.getElementById('yes-btn').addEventListener('touchstart', acceptProposal, { passive: false });
 
         // Runaway "No" Button behavior
-        noBtn.addEventListener('mouseover', moveNoButton);
-        noBtn.addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            moveNoButton();
-        });
-
-        function moveNoButton() {
+        function moveNoButton(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
             const x = Math.random() * (btnGroup.offsetWidth - noBtn.offsetWidth);
             const y = Math.random() * (btnGroup.offsetHeight - noBtn.offsetHeight);
             noBtn.style.left = `${x}px`;
             noBtn.style.top = `${y}px`;
         }
+
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', moveNoButton, { passive: false });
     </script>
-</body>
-</html>
+</body
