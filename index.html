@@ -92,7 +92,7 @@
         }
 
         .letter-box.open {
-            max-height: 2500px; /* Expanded to fit new features smoothly */
+            max-height: 2500px; 
             opacity: 1;
             padding: 25px 20px;
             margin-top: 30px;
@@ -142,18 +142,32 @@
             transform: translate(-30px, 40px) rotate(-90deg);
         }
 
-        /* Meme Section Design */
+        /* Pure CSS Animated Birthday Cat Display (No external links to break!) */
         .meme-container {
             display: none;
             text-align: center;
             margin: 25px 0;
             animation: fadeIn 0.8s ease-in-out forwards;
         }
-        .meme-gif {
-            max-width: 75%;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-            margin: 15px 0;
+        
+        .animated-cat-card {
+            background: #fff0f3;
+            border: 2px solid #ffb3c1;
+            border-radius: 20px;
+            padding: 20px;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .cat-dance {
+            font-size: 5rem;
+            display: inline-block;
+            animation: catJam 0.6s infinite alternate cubic-bezier(0.455, 0.03, 0.515, 0.955);
+        }
+
+        @keyframes catJam {
+            0% { transform: scale(1) rotate(-10deg) translateY(0); }
+            100% { transform: scale(1.15) rotate(10deg) translateY(-15px); }
         }
 
         /* Proposal Section Styling */
@@ -173,7 +187,6 @@
             font-weight: 600;
         }
 
-        /* Flexbox handles side-by-side positioning beautifully */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -203,7 +216,7 @@
             background-color: #ff6b6b;
             color: white;
             box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
-            position: relative; /* Starts relative (side-by-side) then flips to absolute on move */
+            position: relative; 
             touch-action: none; 
             transition: transform 0.1s ease;
             z-index: 2;
@@ -245,7 +258,7 @@
             
             <p>Happy Birthday! I wanted to create something just for you to celebrate your special day.</p>
             
-            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get your desire as weell.</p>
+            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get your all desires.</p>
             
             <p style="text-align: right; font-weight: bold; color: #ff5e7e;">— With love ❤️</p>
             
@@ -261,7 +274,11 @@
 
             <!-- Happy Cat Meme Container (Revealed after cutting cake) -->
             <div class="meme-container" id="catMemeSection">
-                <img src="https://media.tenor.com/Jv9m6VwWw38AAAAM/happy-happy-happy-cat.gif" alt="Happy Cat Meme" class="meme-gif">
+                <div class="animated-cat-card">
+                    <div class="cat-dance">🐱✨</div>
+                    <h3 style="color: #ff5e7e; margin-top: 10px;">Happy Happy Happy!</h3>
+                    <p style="font-size: 0.85rem; color: #666; font-style: italic;">*Happy cat dance activates*</p>
+                </div>
                 
                 <!-- Hidden Proposal Trigger Button -->
                 <center>
@@ -309,7 +326,7 @@
                 
                 triggerConfetti();
 
-                // Smoothly show the happy cat meme section right below the cake status
+                // Smoothly show the happy cat animation section right below the cake status
                 setTimeout(() => {
                     catMemeSection.style.display = 'block';
                     catMemeSection.scrollIntoView({ behavior: 'smooth' });
@@ -323,12 +340,10 @@
             document.getElementById('proposal-box').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Fixed run-away function that smoothly swaps the layout style
         function moveNoButton() {
             const noBtn = document.getElementById('no-button');
             const container = document.getElementById('btn-group-container');
             
-            // Switch from side-by-side flow to floating absolute position so it can jump anywhere
             if (noBtn.style.position !== 'absolute') {
                 noBtn.style.position = 'absolute';
             }
@@ -337,7 +352,6 @@
             const maxWidth = container.clientWidth - noBtn.clientWidth - padding;
             const maxHeight = container.clientHeight - noBtn.clientHeight - padding;
             
-            // Generate entirely safe random boundaries inside the card element
             const randomX = Math.floor(Math.random() * maxWidth);
             const randomY = Math.floor((Math.random() - 0.5) * maxHeight); 
             
