@@ -1,4 +1,4 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,6 +71,7 @@ i<!DOCTYPE html>
             cursor: pointer;
             box-shadow: 0 5px 15px rgba(255, 94, 126, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
+            margin: 10px 0;
         }
 
         .action-btn:hover {
@@ -92,7 +93,7 @@ i<!DOCTYPE html>
         }
 
         .letter-box.open {
-            max-height: 1000px;
+            max-height: 2000px; /* Increased to allow room for new content */
             opacity: 1;
             padding: 25px 20px;
             margin-top: 30px;
@@ -114,195 +115,182 @@ i<!DOCTYPE html>
             line-height: 1.5;
         }
 
-        /* Proposal Section Styling */
-        .proposal-section {
-            display: none;
-            margin-top: 30px;
-            border-top: 2px dashed #ffb3c1;
-            padding-top: 20px;
+        /* --- New Sections Styling --- */
+        
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, rgba(0,0,0,0), rgba(255,94,126,0.4), rgba(0,0,0,0));
+            margin: 25px 0;
+        }
+
+        /* Cake Cutting Section */
+        .cake-section {
             text-align: center;
+            margin: 20px 0;
         }
-
-        .proposal-title {
-            color: #d62246;
-            font-size: 1.2rem;
-            margin-bottom: 25px;
-            line-height: 1.6;
-            font-weight: 600;
-        }
-
-        /* Flexbox handles side-by-side positioning beautifully */
-        .btn-group {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 30px; 
-            height: 120px;
-            position: relative;
-        }
-
-        .proposal-btn {
-            padding: 12px 35px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 25px;
-            border: none;
+        .cake-container {
+            font-size: 4.5rem;
             cursor: pointer;
+            display: inline-block;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .cake-container:hover {
+            transform: scale(1.1);
+        }
+        .knife {
+            position: absolute;
+            right: -20px;
+            top: -10px;
+            font-size: 2rem;
+            transform: rotate(-45deg);
+            transition: transform 0.5s;
+        }
+        .cake-container.cut .knife {
+            transform: translate(-30px, 40px) rotate(-90deg);
         }
 
-        .yes-btn {
-            background-color: #4ecdc4;
-            color: white;
-            box-shadow: 0 4px 10px rgba(78, 205, 196, 0.4);
-            z-index: 2;
+        /* Meme Section */
+        .meme-section {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .meme-gif {
+            max-width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
-        .no-btn {
-            background-color: #ff6b6b;
-            color: white;
-            box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
-            position: relative; /* Starts relative (side-by-side) then flips to absolute on move */
-            touch-action: none; 
-            transition: transform 0.1s ease;
-            z-index: 2;
-        }
-
-        .success-message {
+        /* Surprise Section */
+        .surprise-box {
             display: none;
-            color: #4ecdc4;
-            font-size: 1.6rem;
-            font-weight: bold;
+            background: #f0f7ff;
+            border: 2px dashed #a8c1ef;
+            padding: 20px;
+            border-radius: 12px;
             margin-top: 20px;
-            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out forwards;
         }
 
-        @keyframes pop {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
 
-    <div class="container" id="main-card">
-        <div class="icon-container" id="main-icon">🎁</div>
+    <div class="container">
+        <div class="icon-container">🎉</div>
+        <h1>Happy Birthday Binal!</h1>
+        <p class="subtitle">A special celebration made just for you</p>
         
-        <h1 id="main-title">Happy Birthday, Binal! 🎂</h1>
-        <p class="subtitle" id="main-subtitle">To my special friend ✨</p>
-        
-        <button class="action-btn" id="reveal-btn" onclick="openWish()">Open Your Wish ✨</button>
+        <button class="action-btn" id="openBtn" onclick="toggleLetter()">Open Your Celebration Letter</button>
 
-        <!-- Birthday Message Layer -->
-        <div class="letter-box" id="wish-letter">
-            <p>Dear Binal (Sweety),</p>
+        <div class="letter-box" id="letterBox">
+            <p>Dear Binal,</p>
+            <p>Wishing you a wonderful day filled with joy, laughter, and everything your heart desires.</p>
             
-            <p>Happy Birthday! I wanted to create something unique just for you to celebrate your special day.</p>
-            
-            <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve.</p>
-            
-            <p style="text-align: right; font-weight: bold; color: #ff5e7e;">— With love ❤️</p>
-            
-            <!-- Hidden Proposal Trigger Button -->
-            <center>
-                <button class="action-btn" id="proposal-trigger-btn" style="margin-top: 20px; background: linear-gradient(45deg, #d62246, #ff5e7e);" onclick="showProposal()">Click for one more thing... 👀</button>
-            </center>
-        </div>
+            <p class="highlight-text">✨ May this year ahead be your brightest and happiest one yet! ✨</p>
 
-        <!-- Proposal Layer with your English Statement -->
-        <div class="proposal-section" id="proposal-box">
-            <h2 class="proposal-title">"The future is unpredictable, but I am just so happy to be right here in this moment with you today. Whatever happens tomorrow, let's promise that our bond stays long as much as. Let's always be friends." 💖</h2>
-            
-            <div class="btn-group" id="btn-group-container">
-                <button class="proposal-btn yes-btn" onclick="acceptProposal()">YES! 🏛️</button>
-                <button class="proposal-btn no-btn" id="no-button" onmouseover="moveNoButton()" ontouchstart="moveNoButton()" onclick="moveNoButton()">No 😢</button>
+            <hr class="section-divider">
+
+            <!-- Cake Cutting Section -->
+            <div class="cake-section">
+                <h3>🎂 Time to Cut the Cake!</h3>
+                <p style="font-size: 0.9rem; color: #777; margin-bottom: 10px;">Click the cake to make a wish and cut it!</p>
+                <div class="cake-container" id="cakeObj" onclick="cutCake()">
+                    <span class="knife">🔪</span>
+                    <span id="cakeEmoji">🎂</span>
+                </div>
+                <p id="cakeStatus" style="font-weight: bold; color: #ff5e7e; margin-top: 10px;"></p>
             </div>
-            
-            <div class="success-message" id="success-text">
-                YAYYY! You made me the happiest person! 💖🌍✨
+
+            <hr class="section-divider">
+
+            <!-- Happy Cat Meme Section -->
+            <div class="meme-section">
+                <h3>Current Mood: Maximum Happy! 🐱</h3>
+                <!-- Happy happy happy cat meme embedded via Giphy -->
+                <iframe src="https://giphy.com/embed/v6aO3mz3wTx16" width="240" height="240" frameBorder="0" class="meme-gif" allowFullScreen></iframe>
+                <p style="font-style: italic; margin-top: 10px; text-align: center;">*Happy Happy Happy noises intensify*</p>
+            </div>
+
+            <hr class="section-divider">
+
+            <!-- 1 More Surprise Button inside -->
+            <div style="text-align: center;">
+                <button class="action-btn" style="background: linear-gradient(45deg, #a8c1ef, #ff8967);" onclick="revealFinalSurprise()">
+                    Click for 1 More Surprise! 🎁
+                </button>
+            </div>
+
+            <!-- Hidden Final Surprise Box -->
+            <div class="surprise-box" id="surpriseBox">
+                <h3>💝 Surprise!</h3>
+                <p>You are incredibly awesome, and I hope this tiny digital corner brought a huge smile to your face today! Have the best birthday ever!</p>
             </div>
         </div>
     </div>
 
     <script>
-        function openWish() {
-            const letter = document.getElementById('wish-letter');
-            letter.classList.add('open');
-            
-            const btn = document.getElementById('reveal-btn');
-            btn.style.display = 'none'; 
-            
-            triggerConfetti();
+        // Confetti explosion generator
+        function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
         }
 
-        function showProposal() {
-            document.getElementById('proposal-box').style.display = 'block';
-            document.getElementById('proposal-trigger-btn').style.display = 'none';
-            document.getElementById('proposal-box').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Fixed run-away function that smoothly swaps the layout style
-        function moveNoButton() {
-            const noBtn = document.getElementById('no-button');
-            const container = document.getElementById('btn-group-container');
+        function toggleLetter() {
+            const box = document.getElementById('letterBox');
+            const btn = document.getElementById('openBtn');
             
-            // Switch from side-by-side flow to floating absolute position so it can jump anywhere
-            if (noBtn.style.position !== 'absolute') {
-                noBtn.style.position = 'absolute';
+            box.classList.toggle('open');
+            
+            if(box.classList.contains('open')) {
+                btn.innerText = "Close Letter";
+                launchConfetti();
+                // Extra sparkles delay
+                setTimeout(launchConfetti, 400);
+            } else {
+                btn.innerText = "Open Your Celebration Letter";
             }
-            
-            const padding = 30;
-            const maxWidth = container.clientWidth - noBtn.clientWidth - padding;
-            const maxHeight = container.clientHeight - noBtn.clientHeight - padding;
-            
-            // Generate entirely safe random boundaries inside the card element
-            const randomX = Math.floor(Math.random() * maxWidth);
-            const randomY = Math.floor((Math.random() - 0.5) * maxHeight); 
-            
-            noBtn.style.left = randomX + 'px';
-            noBtn.style.transform = `translateY(${randomY}px)`;
         }
 
-        function acceptProposal() {
-            document.getElementById('btn-group-container').style.display = 'none';
-            document.getElementById('no-button').style.display = 'none';
+        function cutCake() {
+            const cakeContainer = document.getElementById('cakeObj');
+            const cakeEmoji = document.getElementById('cakeEmoji');
+            const cakeStatus = document.getElementById('cakeStatus');
             
-            document.getElementById('main-icon').innerHTML = "💝";
-            document.getElementById('success-text').style.display = 'block';
-            document.body.style.background = "linear-gradient(135deg, #ffafbd 0%, #ffc3a0 100%)";
+            if(!cakeContainer.classList.contains('cut')) {
+                cakeContainer.classList.add('cut');
+                cakeEmoji.innerText = "🍰✨🍰";
+                cakeStatus.innerText = "Yay! The cake is cut! Save a slice! 🍽️";
+                
+                // Blast of celebration confetti
+                launchConfetti();
+            }
+        }
+
+        function revealFinalSurprise() {
+            const surpriseBox = document.getElementById('surpriseBox');
+            surpriseBox.style.display = 'block';
             
-            var duration = 6 * 1000;
+            // Side bursts of confetti
+            var duration = 2 * 1000;
             var end = Date.now() + duration;
 
             (function frame() {
-                confetti({
-                    particleCount: 7,
-                    angle: 60,
-                    spread: 60,
-                    origin: { x: 0 },
-                    colors: ['#ff5e7e', '#ff8967', '#ffafbd']
-                });
-                confetti({
-                    particleCount: 7,
-                    angle: 120,
-                    spread: 60,
-                    origin: { x: 1 },
-                    colors: ['#ff5e7e', '#ff8967', '#ffafbd']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+              confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
+              confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
+              if (Date.now() < end) { requestAnimationFrame(frame); }
             }());
-        }
-
-        function triggerConfetti() {
-            var duration = 2.5 * 1000;
-            var end = Date.now() + duration;
-            (function frame() {
-                confetti({ particleCount: 4, angle: 60, spread: 55, origin: { x: 0 } });
-                confetti({ particleCount: 4, angle: 120, spread: 55, origin: { x: 1 } });
-                if (Date.now() < end) { requestAnimationFrame(frame); }
-            }());
+            
+            surpriseBox.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
 </body>
