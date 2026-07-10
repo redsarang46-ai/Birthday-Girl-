@@ -299,7 +299,6 @@
             font-weight: 600;
         }
 
-        /* ===== BUTTON GROUP FIX ===== */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -336,7 +335,7 @@
             color: white;
             box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
             position: absolute;
-            right: 40px; /* Positioned clearly to the right initially */
+            right: 40px;
             z-index: 4;
             transition: all 0.2s ease;
         }
@@ -394,7 +393,8 @@
                 </div>
                 <div class="cat-card-body">
                     <div class="caption"><span>😱 OMG it's cake! 🎂</span></div>
-                    <button class="cat-cut-btn" id="catCutBtn">🎂 Cut the Cake!</button>
+                    <!-- CHANGED TEXT TO "Cut here!" -->
+                    <button class="cat-cut-btn" id="catCutBtn">🎂 Cut here!</button>
                 </div>
             </div>
 
@@ -501,100 +501,109 @@
         catCutBtn.addEventListener('click', handleCatCut);
         catCutBtn.addEventListener('touchstart', handleCatCut, { passive: false });
 
-        // Realistic Cake Drawer
+        // BEAUTIFUL REALISTIC CAKE DESIGNER
         function drawCake(progress) {
             const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
-            // 1. Plate
-            ctx.fillStyle = '#e5dcd9';
+            // Base Stand / Plate
+            ctx.fillStyle = '#e2d5d1';
             ctx.beginPath();
-            ctx.ellipse(W/2, 310, 150, 22, 0, 0, Math.PI * 2);
+            ctx.ellipse(W/2, 315, 160, 24, 0, 0, Math.PI * 2);
             ctx.fill();
-            ctx.fillStyle = '#d5c8c4';
+            ctx.fillStyle = '#d1c0bb';
             ctx.beginPath();
-            ctx.ellipse(W/2, 310, 140, 18, 0, 0, Math.PI * 2);
+            ctx.ellipse(W/2, 315, 145, 18, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            let shiftLeft = progress * -20;
-            let shiftRight = progress * 20;
+            let shiftLeft = progress * -25;
+            let shiftRight = progress * 25;
 
-            // DRAW LEFT SIDE OF CAKE
+            // DRAW LEFT SPLIT HALF
             ctx.save();
             ctx.translate(shiftLeft, 0);
             
-            // Bottom Tier (Left Half)
-            ctx.fillStyle = '#f48fb1'; // Cream filling line background
-            ctx.fillRect(W/2 - 110, 220, 110, 70);
-            ctx.fillStyle = '#ffbcd1'; // Top frosting cover
-            ctx.fillRect(W/2 - 110, 220, 110, 15);
+            // Bottom Tier Shadow & Rounded Base
+            ctx.fillStyle = '#f48fb1';
+            ctx.beginPath();
+            ctx.ellipse(W/2 - 55, 280, 55, 15, 0, 0, Math.PI);
+            ctx.fill();
+            ctx.fillRect(W/2 - 110, 210, 110, 70);
             
-            // Top Tier (Left Half)
-            ctx.fillStyle = '#f06292';
-            ctx.fillRect(W/2 - 80, 160, 80, 60);
-            ctx.fillStyle = '#ffbcd1';
-            ctx.fillRect(W/2 - 80, 160, 80, 12);
+            // Frosting top arc
+            ctx.fillStyle = '#ffb0c4';
+            ctx.beginPath();
+            ctx.ellipse(W/2 - 55, 210, 55, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
 
-            // Drips & Frosting Details (Left side)
+            // Top Tier Rounded Base
+            ctx.fillStyle = '#f06292';
+            ctx.beginPath();
+            ctx.ellipse(W/2 - 40, 210, 40, 12, 0, 0, Math.PI);
+            ctx.fill();
+            ctx.fillRect(W/2 - 80, 150, 80, 60);
+            
+            // Top Frosting Lid
+            ctx.fillStyle = '#ffbcd1';
+            ctx.beginPath();
+            ctx.ellipse(W/2 - 40, 150, 40, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Decorative Frosting Drops (Left Side)
             ctx.fillStyle = '#e91e63';
-            ctx.fillRect(W/2 - 110, 220, 110, 4); // layer separation line
-            ctx.fillRect(W/2 - 80, 160, 80, 4);
+            for(let i=0; i<4; i++){
+                ctx.beginPath();
+                ctx.arc((W/2 - 100) + (i * 28), 215, 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
             ctx.restore();
 
-            // DRAW RIGHT SIDE OF CAKE
+            // DRAW RIGHT SPLIT HALF
             ctx.save();
             ctx.translate(shiftRight, 0);
 
-            // Bottom Tier (Right Half)
-            ctx.fillStyle = '#f48fb1'; 
-            ctx.fillRect(W/2, 220, 110, 70);
-            ctx.fillStyle = '#ffbcd1'; 
-            ctx.fillRect(W/2, 220, 110, 15);
+            // Bottom Tier
+            ctx.fillStyle = '#f48fb1';
+            ctx.beginPath();
+            ctx.ellipse(W/2 + 55, 280, 55, 15, 0, 0, Math.PI);
+            ctx.fill();
+            ctx.fillRect(W/2, 210, 110, 70);
             
-            // Top Tier (Right Half)
+            // Frosting top arc
+            ctx.fillStyle = '#ffb0c4';
+            ctx.beginPath();
+            ctx.ellipse(W/2 + 55, 210, 55, 15, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Top Tier
             ctx.fillStyle = '#f06292';
-            ctx.fillRect(W/2, 160, 80, 60);
+            ctx.beginPath();
+            ctx.ellipse(W/2 + 40, 210, 40, 12, 0, 0, Math.PI);
+            ctx.fill();
+            ctx.fillRect(W/2, 150, 80, 60);
+            
+            // Top Frosting Lid
             ctx.fillStyle = '#ffbcd1';
-            ctx.fillRect(W/2, 160, 80, 12);
+            ctx.beginPath();
+            ctx.ellipse(W/2 + 40, 150, 40, 12, 0, 0, Math.PI * 2);
+            ctx.fill();
 
-            // Drips & Frosting Details (Right side)
+            // Decorative Frosting Drops (Right Side)
             ctx.fillStyle = '#e91e63';
-            ctx.fillRect(W/2, 220, 110, 4);
-            ctx.fillRect(W/2, 160, 80, 4);
-            ctx.restore();
-
-            // Candle (Only stands before cake is fully split open)
-            if (progress === 0) {
-                // Candle stick
-                ctx.fillStyle = '#4ecdc4';
-                ctx.fillRect(W/2 - 5, 115, 10, 45);
-                // stripes
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(W/2 - 5, 123, 10, 5);
-                ctx.fillRect(W/2 - 5, 138, 10, 5);
-                // Wick
-                ctx.fillStyle = '#333';
-                ctx.fillRect(W/2 - 1, 107, 2, 8);
-                // Flame Glow
-                let glow = ctx.createRadialGradient(W/2, 98, 2, W/2, 98, 12);
-                glow.addColorStop(0, '#ffeb3b');
-                glow.addColorStop(1, 'rgba(255,87,34,0)');
-                ctx.fillStyle = glow;
+            for(let i=0; i<4; i++){
                 ctx.beginPath();
-                ctx.arc(W/2, 98, 12, 0, Math.PI*2);
-                ctx.fill();
-                // Flame Core
-                ctx.fillStyle = '#ff9800';
-                ctx.beginPath();
-                ctx.ellipse(W/2, 98, 4, 8, 0, 0, Math.PI*2);
+                ctx.arc((W/2 + 12) + (i * 28), 215, 6, 0, Math.PI * 2);
                 ctx.fill();
             }
-        }
+            ctx.restore();
 
-        function startCakeCut(e) {
-            if (e) { e.preventDefault(); e.stopPropagation(); }
-            if (!cakeCut) {
-                let interval = setInterval(() => {
-                    cutProgress += 0.05;
-                    drawCake(cutProgress);
-                    if (c
+            // Intact Candle setup before slice
+            if (progress === 0) {
+                // Candle Stick
+                ctx.fillStyle = '#4ecdc4';
+                ctx.fillRect(W/2 - 4, 105, 8, 45);
+                
+                // Spiral Candle Wax Details
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(W/2 - 4, 112, 8, 4);
+                ctx.fillRect(W/2 - 4, 126, 8, 4)
