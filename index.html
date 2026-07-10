@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Happy Birthday Binal! 🎉</title>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
-    </script>
+    <title>Happy Birthday Binal! 🧿✨</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         * {
             box-sizing: border-box;
@@ -45,13 +44,8 @@
         }
 
         @keyframes float {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         h1 {
@@ -77,7 +71,7 @@
             cursor: pointer;
             box-shadow: 0 5px 18px rgba(255, 94, 126, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
-            touch-action: manipulation; /* ← prevents zoom on double-tap */
+            touch-action: manipulation;
         }
 
         .action-btn:hover {
@@ -85,7 +79,6 @@
             box-shadow: 0 8px 24px rgba(255, 94, 126, 0.55);
         }
 
-        /* ---- Letter Box ---- */
         .letter-box {
             max-height: 0;
             overflow: hidden;
@@ -100,7 +93,7 @@
         }
 
         .letter-box.open {
-            max-height: 2000px;
+            max-height: 3000px;
             opacity: 1;
             padding: 25px 20px;
             margin-top: 28px;
@@ -113,19 +106,123 @@
             font-size: 1.05rem;
         }
 
-        .letter-box .highlight-text {
-            font-size: 1.15rem;
-            color: #ff5e7e;
-            font-weight: 600;
+        /* ===== SURPRISE BIRTHDAY CARD ===== */
+        .surprise-cat {
+            display: none;
+            margin: 24px 0 10px;
+            background: linear-gradient(145deg, #fff5f7, #ffe8ec);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(255, 94, 126, 0.25);
+            overflow: hidden;
+            animation: pop 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             text-align: center;
-            margin: 18px 0;
-            line-height: 1.5;
+            border: 2px solid #ffb3c1;
+            transition: transform 0.3s ease;
         }
 
-        /* ---- CAKE CUTTING SECTION ---- */
-        .cake-section {
-            margin: 20px 0 10px;
+        .surprise-cat.show {
+            display: block;
+        }
+
+        .surprise-cat:hover {
+            transform: scale(1.01);
+        }
+
+        .surprise-cat .cat-image-wrap {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            overflow: hidden;
+            background: #f0e6e8;
+        }
+
+        .surprise-cat .cat-image-wrap img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .surprise-cat .cat-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px 20px 20px;
+            background: linear-gradient(transparent, rgba(214, 34, 70, 0.7));
+            color: white;
             text-align: center;
+        }
+
+        .surprise-cat .cat-overlay .big-text {
+            font-size: 2rem;
+            font-weight: 800;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1px;
+            animation: wiggle 1.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-2deg); }
+            50% { transform: rotate(2deg); }
+        }
+
+        .surprise-cat .cat-card-body {
+            padding: 18px 20px 22px;
+            background: white;
+        }
+
+        .surprise-cat .cat-card-body .caption {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #d62246;
+            margin-bottom: 14px;
+        }
+
+        .surprise-cat .cat-card-body .caption span {
+            display: inline-block;
+            animation: wiggle 0.8s ease-in-out infinite alternate;
+        }
+
+        .surprise-cat .cat-cut-btn {
+            background: linear-gradient(45deg, #ff5e7e, #ff8967);
+            color: white;
+            border: none;
+            padding: 14px 38px;
+            font-size: 1.15rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 94, 126, 0.45);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            touch-action: manipulation;
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto;
+            display: inline-block;
+        }
+
+        .surprise-cat .cat-cut-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(255, 94, 126, 0.55);
+        }
+
+        .surprise-cat .cat-cut-btn:active {
+            transform: scale(0.96);
+        }
+
+        .cake-section {
+            margin: 24px 0 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .cake-section.visible {
+            display: block;
+            animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .cake-section .cake-label {
@@ -144,24 +241,16 @@
             animation: wiggle 1.2s ease-in-out infinite;
         }
 
-        @keyframes wiggle {
-            0%,
-            100% {
-                transform: rotate(-10deg);
-            }
-            50% {
-                transform: rotate(10deg);
-            }
-        }
-
         #cake-canvas-wrapper {
             position: relative;
             display: inline-block;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            border-radius: 18px;
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.10);
             background: #fef6f7;
-            padding: 6px;
+            padding: 8px;
             touch-action: none;
+            width: 100%;
+            max-width: 500px;
         }
 
         #cakeCanvas {
@@ -169,7 +258,7 @@
             width: 100%;
             height: auto;
             border-radius: 12px;
-            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><polygon points="2,2 30,10 18,14 22,26 2,2" fill="%23cccccc" stroke="%23999999" stroke-width="1.5"/><circle cx="26" cy="8" r="4" fill="%23ffcc00" stroke="%23cc9900" stroke-width="1"/></svg>') 16 8, auto;
+            cursor: pointer;
             touch-action: none;
         }
 
@@ -182,13 +271,8 @@
         }
 
         @keyframes pulse-hint {
-            0%,
-            100% {
-                opacity: 0.6;
-            }
-            50% {
-                opacity: 1;
-            }
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .cake-cut-status {
@@ -199,7 +283,6 @@
             min-height: 28px;
         }
 
-        /* ---- Proposal ---- */
         .proposal-section {
             display: none;
             margin-top: 28px;
@@ -242,16 +325,13 @@
             box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
             z-index: 2;
         }
-        .yes-btn:hover {
-            transform: scale(1.05);
-        }
+        .yes-btn:hover { transform: scale(1.05); }
 
         .no-btn {
             background-color: #ff6b6b;
             color: white;
             box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
-            position: relative;
-            touch-action: none;
+            position: absolute;
             z-index: 2;
         }
 
@@ -265,146 +345,19 @@
         }
 
         @keyframes pop {
-            0% {
-                transform: scale(0.4);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+            0% { transform: scale(0.4); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        /* ---- CAT MEMES GALLERY ---- */
-        .cat-memes-section {
-            display: none;
-            margin-top: 30px;
-            border-top: 3px solid #ffb3c1;
-            padding-top: 24px;
-            text-align: center;
-        }
-
-        .cat-memes-section .cat-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: #d62246;
-            margin-bottom: 6px;
-        }
-
-        .cat-memes-section .cat-sub {
-            font-size: 0.95rem;
-            color: #888;
-            margin-bottom: 18px;
-        }
-
-        .cat-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 14px;
-            margin-top: 12px;
-        }
-
-        .cat-card {
-            background: #fff5f7;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-            transition: transform 0.25s ease, box-shadow 0.25s ease;
-            cursor: default;
-        }
-
-        .cat-card:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 10px 28px rgba(255, 94, 126, 0.2);
-        }
-
-        .cat-card img {
-            width: 100%;
-            height: 140px;
-            object-fit: cover;
-            display: block;
-            background: #f0e6e8;
-        }
-
-        .cat-card .cat-caption {
-            padding: 10px 10px 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #555;
-            background: white;
-            line-height: 1.3;
-            min-height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cat-card .cat-emoji-big {
-            font-size: 3.4rem;
-            padding: 18px 0 6px;
-            background: #fff9fa;
-        }
-
-        /* ---- Responsive ---- */
         @media (max-width: 480px) {
-            .container {
-                padding: 22px 16px 30px;
-            }
-            h1 {
-                font-size: 1.7rem;
-            }
-            .letter-box.open {
-                padding: 18px 14px;
-            }
-            .btn-group {
-                gap: 16px;
-                height: 100px;
-            }
-            .proposal-btn {
-                padding: 10px 22px;
-                font-size: 0.95rem;
-            }
-            .cat-grid {
-                grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-                gap: 10px;
-            }
-            .cat-card img {
-                height: 110px;
-            }
-            .cake-label {
-                font-size: 0.9rem;
-            }
-        }
-
-        .cat-grid-wrap {
-            max-height: 400px;
-            overflow-y: auto;
-            padding-right: 4px;
-        }
-        .cat-grid-wrap::-webkit-scrollbar {
-            width: 5px;
-        }
-        .cat-grid-wrap::-webkit-scrollbar-track {
-            background: #f0e6e8;
-            border-radius: 8px;
-        }
-        .cat-grid-wrap::-webkit-scrollbar-thumb {
-            background: #ffb3c1;
-            border-radius: 8px;
-        }
-
-        .sparkle-text {
-            display: inline-block;
-            animation: sparkle 1.8s ease-in-out infinite;
-        }
-        @keyframes sparkle {
-            0%,
-            100% {
-                text-shadow: 0 0 4px #ffd700, 0 0 8px #ffd700;
-            }
-            50% {
-                text-shadow: 0 0 12px #ff6b6b, 0 0 24px #ff5e7e;
-            }
+            .container { padding: 22px 16px 30px; }
+            h1 { font-size: 1.7rem; }
+            .letter-box.open { padding: 18px 14px; }
+            .btn-group { gap: 16px; height: 100px; }
+            .proposal-btn { padding: 10px 22px; font-size: 0.95rem; }
+            .surprise-cat .cat-overlay .big-text { font-size: 1.4rem; }
+            .surprise-cat .cat-card-body .caption { font-size: 1.1rem; }
+            .surprise-cat .cat-cut-btn { font-size: 1rem; padding: 12px 28px; max-width: 220px; }
         }
     </style>
 </head>
@@ -413,10 +366,9 @@
     <div class="container" id="main-card">
         <div class="icon-container" id="main-icon">🎁</div>
 
-        <h1 id="main-title">Happy Birthday, Binal! 🎂</h1>
+        <h1 id="main-title">Happy birthday binal🧿✨</h1>
         <p class="subtitle" id="main-subtitle">To my special friend ✨</p>
 
-        <!-- The button now uses an ID and we attach events via JS -->
         <button class="action-btn" id="reveal-btn">Open Your Wish ✨</button>
 
         <!-- Letter Box -->
@@ -425,16 +377,30 @@
             <p>Happy Birthday! I wanted to create something just for you to celebrate your special day.</p>
             <p>Thank you for being such an incredible part of my life. I hope this year brings you all the happiness, smiles, and beautiful moments you deserve and you get all your desires as well.</p>
 
+            <!-- ===== SURPRISE BIRTHDAY CARD ===== -->
+            <div class="surprise-cat" id="surpriseCat">
+                <div class="cat-image-wrap">
+                    <img id="catImage" src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&auto=format&fit=crop" alt="Birthday Balloons" />
+                    <div class="cat-overlay">
+                        <div class="big-text">🎉 Happy birthday binal🧿✨</div>
+                    </div>
+                </div>
+                <div class="cat-card-body">
+                    <div class="caption"><span>😱 OMG it's cake! 🎂</span></div>
+                    <button class="cat-cut-btn" id="catCutBtn">🎂 Cut the Cake!</button>
+                </div>
+            </div>
+
             <!-- ===== CAKE CUTTING ===== -->
             <div class="cake-section" id="cakeSection">
                 <div class="cake-label">
                     <span>🎂</span>
-                    <span>Cut the cake with the knife!</span>
+                    <span>Click to slice the cake!</span>
                     <span class="knife-icon">🔪</span>
                 </div>
 
                 <div id="cake-canvas-wrapper">
-                    <canvas id="cakeCanvas" width="500" height="360"></canvas>
+                    <canvas id="cakeCanvas" width="500" height="380"></canvas>
                 </div>
 
                 <div class="cake-hint" id="cakeHint">👆 Click on the cake to cut it!</div>
@@ -443,7 +409,7 @@
 
             <p style="text-align: right; font-weight: bold; color: #ff5e7e; margin-top: 14px;">— With love ❤️</p>
 
-            <!-- Proposal Trigger (hidden until cake cut) -->
+            <!-- Proposal Trigger -->
             <center>
                 <button class="action-btn" id="proposal-trigger-btn" style="margin-top: 18px; background: linear-gradient(45deg, #d62246, #ff5e7e); display: none;">
                     Click for one more thing… 👀
@@ -466,164 +432,152 @@
                 YAYYY! You made me the happiest person! 💖🌍✨
             </div>
         </div>
-
-        <!-- ===== CAT MEMES GALLERY ===== -->
-        <div class="cat-memes-section" id="catMemesSection">
-            <div class="cat-title">
-                🐱 <span class="sparkle-text">Happy Cat Memes</span> 🐱
-            </div>
-            <div class="cat-sub">Because every celebration needs some purr-fect joy!</div>
-
-            <div class="cat-grid-wrap">
-                <div class="cat-grid" id="catGrid">
-                    <!-- filled by JS -->
-                </div>
-            </div>
-            <div style="margin-top: 16px; font-size: 0.85rem; color: #aaa;">
-                🎉 Surprise! More cats = more happiness 🎉
-            </div>
-        </div>
     </div>
 
     <script>
-        // ============================================================
-        //  0.  FIXED: BUTTON EVENT LISTENERS (click + touch)
-        // ============================================================
         const revealBtn = document.getElementById('reveal-btn');
         const letter = document.getElementById('wish-letter');
         const triggerBtn = document.getElementById('proposal-trigger-btn');
+        const surpriseCat = document.getElementById('surpriseCat');
+        const catCutBtn = document.getElementById('catCutBtn');
+        const cakeSection = document.getElementById('cakeSection');
+        const proposalBox = document.getElementById('proposal-box');
+        const successText = document.getElementById('success-text');
+        const btnGroup = document.getElementById('btn-group-container');
+        const noBtn = document.getElementById('no-button');
 
-        function openWish() {
-            letter.classList.add('open');
-            revealBtn.style.display = 'none';
-            triggerConfetti(30);
-            setTimeout(() => {
-                hintEl.textContent = '👆 Click on the cake to cut it!';
-            }, 400);
-        }
-
-        // Attach both click and touchstart for reliability
-        revealBtn.addEventListener('click', openWish);
-        revealBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault(); // prevent double-tap zoom
-            openWish();
-        });
-
-        // Also attach to proposal trigger button
-        triggerBtn.addEventListener('click', showProposal);
-        triggerBtn.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            showProposal();
-        });
-
-        // And the yes/no buttons
-        document.getElementById('yes-btn').addEventListener('click', acceptProposal);
-        document.getElementById('yes-btn').addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            acceptProposal();
-        });
-
-        // ============================================================
-        //  1.  CAKE CANVAS – DRAW + CUTTING INTERACTION
-        // ============================================================
         const canvas = document.getElementById('cakeCanvas');
         const ctx = canvas.getContext('2d');
         const statusEl = document.getElementById('cakeStatus');
         const hintEl = document.getElementById('cakeHint');
 
         let cakeCut = false;
-        let cutProgress = 0; // 0..1
-        let animId = null;
+        let cutProgress = 0;
 
+        function triggerConfetti(count) {
+            confetti({
+                particleCount: count,
+                spread: 60,
+                origin: { y: 0.7 }
+            });
+        }
+
+        function openWish() {
+            letter.classList.add('open');
+            revealBtn.style.display = 'none';
+            surpriseCat.classList.add('show');
+            triggerConfetti(45);
+            setTimeout(() => {
+                surpriseCat.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 400);
+        }
+
+        revealBtn.addEventListener('click', openWish);
+
+        function handleCatCut() {
+            cakeSection.classList.add('visible');
+            drawCake(0);
+            setTimeout(() => {
+                cakeSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+
+            catCutBtn.textContent = '🔪 Cut Standard!';
+            catCutBtn.style.opacity = '0.6';
+            catCutBtn.style.cursor = 'default';
+            catCutBtn.disabled = true;
+            triggerConfetti(30);
+        }
+
+        catCutBtn.addEventListener('click', handleCatCut);
+
+        // Cake Drawer
         function drawCake(progress) {
-            const W = canvas.width,
-                H = canvas.height;
+            const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
-            const grad = ctx.createLinearGradient(0, 0, 0, H);
-            grad.addColorStop(0, '#fef6f7');
-            grad.addColorStop(1, '#fce4ec');
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, W, H);
+            // Base plate
+            ctx.fillStyle = '#bfb0ab';
+            ctx.beginPath();
+            ctx.ellipse(W/2, 300, 160, 25, 0, 0, Math.PI * 2);
+            ctx.fill();
 
-            const cx = W / 2;
-            const bottomY = 300;
-            const tiers = [
-                { w: 220, h: 48, yOff: 0, color: '#f8bbd0', shade: '#f48fb1' },
-                { w: 180, h: 44, yOff: -44, color: '#fce4ec', shade: '#f8bbd0' },
-                { w: 140, h: 40, yOff: -88, color: '#fff0f2', shade: '#fce4ec' },
-            ];
+            // Slices split simulation
+            let shiftLeft = progress * -15;
+            let shiftRight = progress * 15;
 
-            const split = progress;
+            // Render Left Side of Cake
+            ctx.save();
+            ctx.translate(shiftLeft, 0);
+            ctx.fillStyle = '#f8bbd0';
+            ctx.fillRect(W/2 - 100, 160, 100, 100);
+            ctx.fillStyle = '#ff8967'; // Frosting top
+            ctx.fillRect(W/2 - 100, 150, 100, 100);
+            ctx.restore();
 
-            for (let t = 0; t < tiers.length; t++) {
-                const tier = tiers[t];
-                const w = tier.w;
-                const h = tier.h;
-                const y = bottomY - tier.yOff - h;
-                const x = cx - w / 2;
+            // Render Right Side of Cake
+            ctx.save();
+            ctx.translate(shiftRight, 0);
+            ctx.fillStyle = '#f48fb1';
+            ctx.fillRect(W/2, 160, 100, 100);
+            ctx.fillStyle = '#ff5e7e'; // Frosting top
+            ctx.fillRect(W/2, 150, 100, 100);
+            ctx.restore();
 
-                ctx.save();
-                ctx.beginPath();
-                ctx.rect(x, y, w / 2 * (1 - split), h);
-                ctx.fillStyle = tier.color;
-                ctx.fill();
-                ctx.strokeStyle = tier.shade;
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-
-                const shiftX = split * 16;
-                ctx.beginPath();
-                ctx.rect(x + w / 2 + shiftX, y, w / 2 * (1 - split), h);
-                ctx.fillStyle = tier.color;
-                ctx.fill();
-                ctx.strokeStyle = tier.shade;
-                ctx.lineWidth = 1.5;
-                ctx.stroke();
-                ctx.restore();
-
-                ctx.save();
-                ctx.strokeStyle = '#ffccd5';
-                ctx.lineWidth = 2;
-                for (let i = 0; i < 6; i++) {
-                    const lx = x + 10 + i * 18;
-                    if (lx < x + w / 2 * (1 - split)) {
-                        ctx.beginPath();
-                        ctx.moveTo(lx, y - 2);
-                        ctx.lineTo(lx + 6, y + 6);
-                        ctx.stroke();
-                    }
-                }
-                for (let i = 0; i < 6; i++) {
-                    const lx = x + w / 2 + 10 + i * 18 + shiftX;
-                    if (lx < x + w / 2 * (1 - split) + shiftX + w / 2) {
-                        ctx.beginPath();
-                        ctx.moveTo(lx, y - 2);
-                        ctx.lineTo(lx + 6, y + 6);
-                        ctx.stroke();
-                    }
-                }
-                ctx.restore();
-
-                ctx.save();
-                ctx.fillStyle = 'rgba(255,255,255,0.35)';
-                for (let i = 0; i < 8; i++) {
-                    const dx = x + 12 + i * 22;
-                    if (dx < x + w / 2 * (1 - split)) {
-                        ctx.beginPath();
-                        ctx.arc(dx, y + h / 2, 3, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                    const dx2 = x + w / 2 + 12 + i * 22 + shiftX;
-                    if (dx2 < x + w / 2 * (1 - split) + shiftX + w / 2) {
-                        ctx.beginPath();
-                        ctx.arc(dx2, y + h / 2, 3, 0, Math.PI * 2);
-                        ctx.fill();
-                    }
-                }
-                ctx.restore();
+            // Candles
+            if (progress === 0) {
+                ctx.fillStyle = '#ffcc00';
+                ctx.fillRect(W/2 - 10, 110, 6, 40);
+                ctx.fillRect(W/2 + 10, 110, 6, 40);
             }
+        }
 
-            if (split < 0.7) {
-                const candleColors = ['#ff6b6b', '#ffd93d', '#6bcbff', '#ff8a5c', '#a29bfe'];
-                const candleX = [cx - 70, cx - 35, 
+        canvas.addEventListener('click', () => {
+            if (!cakeCut) {
+                let interval = setInterval(() => {
+                    cutProgress += 0.05;
+                    drawCake(cutProgress);
+                    if (cutProgress >= 1) {
+                        clearInterval(interval);
+                        cakeCut = true;
+                        statusEl.textContent = '🎂 Cake perfectly cut! 🎉';
+                        hintEl.style.display = 'none';
+                        triggerConfetti(100);
+                        triggerBtn.style.display = 'block';
+                    }
+                }, 30);
+            }
+        });
+
+        function showProposal() {
+            proposalBox.style.display = 'block';
+            setTimeout(() => {
+                proposalBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
+
+        triggerBtn.addEventListener('click', showProposal);
+
+        function acceptProposal() {
+            successText.style.display = 'block';
+            btnGroup.style.display = 'none';
+            triggerConfetti(150);
+        }
+
+        document.getElementById('yes-btn').addEventListener('click', acceptProposal);
+
+        // Runaway "No" Button behavior
+        noBtn.addEventListener('mouseover', moveNoButton);
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            moveNoButton();
+        });
+
+        function moveNoButton() {
+            const x = Math.random() * (btnGroup.offsetWidth - noBtn.offsetWidth);
+            const y = Math.random() * (btnGroup.offsetHeight - noBtn.offsetHeight);
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+        }
+    </script>
+</body>
+</html>
