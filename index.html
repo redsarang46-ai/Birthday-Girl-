@@ -70,6 +70,7 @@
             box-shadow: 0 5px 18px rgba(255, 94, 126, 0.4);
             transition: transform 0.2s, box-shadow 0.2s;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .action-btn:hover {
@@ -104,7 +105,6 @@
             font-size: 1.05rem;
         }
 
-        /* ===== SURPRISE BIRTHDAY CARD ===== */
         .surprise-cat {
             display: none;
             margin: 24px 0 10px;
@@ -185,6 +185,7 @@
             max-width: 280px;
             margin: 0 auto;
             display: inline-block;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .cake-section {
@@ -226,6 +227,7 @@
             height: auto;
             border-radius: 12px;
             cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .cake-hint {
@@ -259,7 +261,6 @@
             font-weight: 600;
         }
 
-        /* ===== SIDE-BY-SIDE SIDE BAR FIXED ===== */
         .btn-group {
             display: flex;
             justify-content: center;
@@ -280,6 +281,7 @@
             cursor: pointer;
             transition: transform 0.15s;
             touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .yes-btn {
@@ -420,16 +422,17 @@
         let cutProgress = 0;
 
         function triggerConfetti(count) {
-            confetti({
-                particleCount: count,
-                spread: 60,
-                origin: { y: 0.7 }
-            });
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: count,
+                    spread: 60,
+                    origin: { y: 0.7 }
+                });
+            }
         }
 
-        // Cleaned Event Handling (Unified click events to safely handle iOS/Android)
-        function openWish(e) {
-            if (e) e.preventDefault();
+        // Standardized single click handler - perfectly responsive on modern mobile viewports
+        function openWish() {
             letter.classList.add('open');
             revealBtn.style.display = 'none';
             surpriseCat.classList.add('show');
@@ -438,12 +441,9 @@
                 surpriseCat.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 400);
         }
-
         revealBtn.addEventListener('click', openWish);
-        revealBtn.addEventListener('touchstart', openWish, { passive: true });
 
-        function handleCatCut(e) {
-            if (e) e.preventDefault();
+        function handleCatCut() {
             cakeSection.classList.add('visible');
             drawCake(0);
             setTimeout(() => {
@@ -456,16 +456,14 @@
             catCutBtn.disabled = true;
             triggerConfetti(30);
         }
-
         catCutBtn.addEventListener('click', handleCatCut);
-        catCutBtn.addEventListener('touchstart', handleCatCut, { passive: true });
 
-        // HIGH-QUALITY CURVED GRAPHICAL CAKE DRAWING
+        // 3D Curved Cake Render Code
         function drawCake(progress) {
             const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
-            // Realistic Plate
+            // Base Serving Plate
             ctx.fillStyle = '#eaf0f6';
             ctx.beginPath();
             ctx.ellipse(W/2, 320, 165, 25, 0, 0, Math.PI * 2);
@@ -478,37 +476,29 @@
             let shiftLeft = progress * -30;
             let shiftRight = progress * 30;
 
-            // DRAW LEFT SIDE WITH 3D RENDERING
+            // Render Left Side Piece
             ctx.save();
             ctx.translate(shiftLeft, 0);
-            
-            // Tier 1 Base Cylinder (Left side)
             ctx.fillStyle = '#f48fb1';
             ctx.beginPath();
             ctx.ellipse(W/2 - 55, 290, 55, 18, 0, 0, Math.PI);
             ctx.fill();
             ctx.fillRect(W/2 - 110, 215, 110, 75);
-            
-            // Tier 1 Cream Top Lid
             ctx.fillStyle = '#fce4ec';
             ctx.beginPath();
             ctx.ellipse(W/2 - 55, 215, 55, 18, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Tier 2 Top Cylinder (Left side)
             ctx.fillStyle = '#f06292';
             ctx.beginPath();
             ctx.ellipse(W/2 - 40, 215, 40, 14, 0, 0, Math.PI);
             ctx.fill();
             ctx.fillRect(W/2 - 80, 145, 80, 70);
-            
-            // Tier 2 Top Lid
             ctx.fillStyle = '#fce4ec';
             ctx.beginPath();
             ctx.ellipse(W/2 - 40, 145, 40, 14, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Strawberry Drip Effects
             ctx.fillStyle = '#d81b60';
             for (let i = 0; i < 4; i++) {
                 ctx.beginPath();
@@ -520,37 +510,29 @@
             }
             ctx.restore();
 
-            // DRAW RIGHT SIDE WITH 3D RENDERING
+            // Render Right Side Piece
             ctx.save();
             ctx.translate(shiftRight, 0);
-
-            // Tier 1 Base Cylinder (Right side)
             ctx.fillStyle = '#f48fb1';
             ctx.beginPath();
             ctx.ellipse(W/2 + 55, 290, 55, 18, 0, 0, Math.PI);
             ctx.fill();
             ctx.fillRect(W/2, 215, 110, 75);
-            
-            // Tier 1 Cream Top Lid
             ctx.fillStyle = '#fce4ec';
             ctx.beginPath();
             ctx.ellipse(W/2 + 55, 215, 55, 18, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Tier 2 Top Cylinder (Right side)
             ctx.fillStyle = '#f06292';
             ctx.beginPath();
             ctx.ellipse(W/2 + 40, 215, 40, 14, 0, 0, Math.PI);
             ctx.fill();
             ctx.fillRect(W/2, 145, 80, 70);
-            
-            // Tier 2 Top Lid
             ctx.fillStyle = '#fce4ec';
             ctx.beginPath();
             ctx.ellipse(W/2 + 40, 145, 40, 14, 0, 0, Math.PI * 2);
             ctx.fill();
 
-            // Strawberry Drip Effects
             ctx.fillStyle = '#d81b60';
             for (let i = 0; i < 4; i++) {
                 ctx.beginPath();
@@ -562,22 +544,17 @@
             }
             ctx.restore();
 
-            // Candle Setup
+            // Candle Logic
             if (progress === 0) {
                 ctx.fillStyle = '#00bcd4';
                 ctx.fillRect(W/2 - 4, 95, 8, 50);
-                
-                // Candle lines
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(W/2 - 4, 105, 8, 4);
                 ctx.fillRect(W/2 - 4, 120, 8, 4);
                 ctx.fillRect(W/2 - 4, 135, 8, 4);
-                
-                // Wick
                 ctx.fillStyle = '#37474f';
                 ctx.fillRect(W/2 - 1, 86, 2, 9);
                 
-                // Fire Flame Vector
                 let glow = ctx.createRadialGradient(W/2, 74, 2, W/2, 74, 16);
                 glow.addColorStop(0, '#fffde7');
                 glow.addColorStop(0.4, '#ffb300');
@@ -594,7 +571,24 @@
             }
         }
 
-        function startCakeCut(e) {
-            if (e) e.preventDefault();
+        function startCakeCut() {
             if (!cakeCut) {
-            
+                let interval = setInterval(() => {
+                    cutProgress += 0.05;
+                    drawCake(cutProgress);
+                    if (cutProgress >= 1) {
+                        clearInterval(interval);
+                        cakeCut = true;
+                        statusEl.textContent = '🎂 Cake perfectly cut! 🎉';
+                        hintEl.style.display = 'none';
+                        triggerConfetti(100);
+                        triggerBtn.style.display = 'block';
+                    }
+                }, 30);
+            }
+        }
+        canvas.addEventListener('click', startCakeCut);
+
+        function showProposal() {
+            proposalBox.style.display = 'block';
+   
